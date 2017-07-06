@@ -1,60 +1,70 @@
-const net = require('net');
-const server = net.createServer(socket => {
-  let date = makeDate();
-  socket.end(date + "\n");
-});
-
+const http = require('http');
+const fs = require('fs');
 const portNumber = process.argv[2];
+const path = process.argv[3];
+
+const server = http.createServer((req, res) => {
+  fs.createReadStream(path).pipe(res);
+});
 server.listen(portNumber);
 
-function makeDate() {
-  let date = new Date;
-  let dateString = "";
-
-  dateString = dateString + date.getFullYear() + "-";
-  dateString = dateString + parseMonth(date) + "-";
-  dateString = dateString + parseDay(date) + " ";
-  dateString = dateString + parseHours(date) + ":";
-  dateString = dateString + parseMinutes(date);
-
-  return dateString;
-}
-
-function parseMonth(date) {
-  let month = date.getMonth() + 1;
-  if (month < 10) {
-    return `0${month}`;
-  } else {
-    return month;
-  }
-}
-
-function parseDay(date) {
-  let day = date.getDate();
-  if (day < 10) {
-    return `0${day}`;
-  } else {
-    return day;
-  }
-}
-
-function parseHours(date) {
-  let hours = date.getHours();
-  if (hours < 10) {
-    return `0${hours}`;
-  } else {
-    return hours;
-  }
-}
-
-function parseMinutes(date) {
-  let minutes = date.getMinutes();
-  if (minutes < 10) {
-    return `0${minutes}`;
-  } else {
-    return minutes;
-  }
-}
+// const net = require('net');
+// const server = net.createServer(socket => {
+//   let date = makeDate();
+//   socket.end(date + "\n");
+// });
+//
+// const portNumber = process.argv[2];
+// server.listen(portNumber);
+//
+// function makeDate() {
+//   let date = new Date;
+//   let dateString = "";
+//
+//   dateString = dateString + date.getFullYear() + "-";
+//   dateString = dateString + parseMonth(date) + "-";
+//   dateString = dateString + parseDay(date) + " ";
+//   dateString = dateString + parseHours(date) + ":";
+//   dateString = dateString + parseMinutes(date);
+//
+//   return dateString;
+// }
+//
+// function parseMonth(date) {
+//   let month = date.getMonth() + 1;
+//   if (month < 10) {
+//     return `0${month}`;
+//   } else {
+//     return month;
+//   }
+// }
+//
+// function parseDay(date) {
+//   let day = date.getDate();
+//   if (day < 10) {
+//     return `0${day}`;
+//   } else {
+//     return day;
+//   }
+// }
+//
+// function parseHours(date) {
+//   let hours = date.getHours();
+//   if (hours < 10) {
+//     return `0${hours}`;
+//   } else {
+//     return hours;
+//   }
+// }
+//
+// function parseMinutes(date) {
+//   let minutes = date.getMinutes();
+//   if (minutes < 10) {
+//     return `0${minutes}`;
+//   } else {
+//     return minutes;
+//   }
+// }
 
 // const http = require('http');
 //

@@ -7,8 +7,15 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
+  "description": "Learn You Node node learning",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjudge1337/node_intro.git"
   },
-  "repository": "https://github.com/cjudge1337/node_intro"
+  "bugs": {
+    "url": "https://github.com/cjudge1337/node_intro/issues"
+  },
+  "homepage": "https://github.com/cjudge1337/node_intro#readme",
+  "devDependencies": {}
 }

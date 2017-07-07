@@ -1,12 +1,48 @@
+const url = require('url');
 const http = require('http');
-const fs = require('fs');
-const portNumber = process.argv[2];
-const path = process.argv[3];
 
 const server = http.createServer((req, res) => {
-  fs.createReadStream(path).pipe(res);
+  let reqUrl = url.parse(req.url, true);
+  let time = new Date(reqUrl.query.iso);
+  let result;
+
+  if (reqUrl.pathname === '/api/parsetime') {
+    result = parseTime(time);
+  } else if (reqUrl.pathname === '/api/unixtime') {
+    result = parseUnixTime(time);
+  }
+
+  if (result) {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(result));
+  } else {
+    res.writeHead(404);
+    res.end();
+  }
 });
-server.listen(portNumber);
+
+server.listen(process.argv[2]);
+
+function parseTime(time) {
+  return {
+    "hour": time.getHours(),
+    "minute": time.getMinutes(),
+    "second": time.getSeconds()
+  }
+}
+
+function parseUnixTime(time) {
+  return { "unixtime": time.getTime() }
+}
+// const http = require('http');
+// const fs = require('fs');
+// const portNumber = process.argv[2];
+// const path = process.argv[3];
+//
+// const server = http.createServer((req, res) => {
+//   fs.createReadStream(path).pipe(res);
+// });
+// server.listen(portNumber);
 
 // const net = require('net');
 // const server = net.createServer(socket => {
